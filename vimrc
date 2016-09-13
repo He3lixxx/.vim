@@ -10,9 +10,9 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Own Plugins
 Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
 
