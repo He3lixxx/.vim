@@ -72,7 +72,12 @@ set autoread            " skip file reload question
 set number              " show line number instead of 0
 set relativenumber      " relative line numbers
 set ttyfast             " faster redrawing
-set mouse=a             " allow mouse usage for resizing windows
+
+set mouse+=a            " allow mouse usage for resizing windows
+if &term =~ '^screen'
+    set ttymouse=xterm2
+endif
+
 set hidden              " allow hidden, unsaved buffers
 set showmatch           " hilight matching surroundings
 
