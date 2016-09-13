@@ -98,12 +98,6 @@ noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
 inoremap jf <esc>
 
-" bindings for easy split nav
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
 " Use sane regex's when searching
 nnoremap / /\v
 vnoremap / /\v
