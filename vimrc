@@ -15,6 +15,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/syntastic'
+Plugin 'hdima/python-syntax'
+Plugin 'altercation/vim-colors-solarized.git'
+Plugin 'benmills/vimux'
+Plugin 'christoomey/vim-tmux-navigator'
 
 
 " Airline
@@ -22,16 +28,25 @@ let g:airline_powerline_fonts = 1
 set laststatus=2 " Always show the status bar
 set t_Co=256     " Colors
 
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" Solarized Color Scheme
+let g:solarized_termcolors=16
+syntax enable
+set background=dark
+
 
 call vundle#end()
 
 " ------------------ Settings
 
+colorscheme solarized
+
 filetype plugin indent on
 
 augroup vimrc_autocmds
     autocmd!
-    " highlight characters past column 120
     autocmd FileType python highlight Excess ctermbg=DarkGrey guibg=Black
     autocmd FileType python match Excess /\%80v.*/
     autocmd FileType python set nowrap
@@ -41,8 +56,8 @@ augroup END
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab      " to spaces
-set smarttab       " treat spaces as tabs
+set expandtab           " to spaces
+set smarttab            " treat spaces as tabs
 set shiftround
 set autoindent
 set smartindent
@@ -52,11 +67,12 @@ set listchars=tab:▸\ ,trail:·
 set list
 
 " Behaviour
-set clipboard=unnamed " share OS clipboard
-set autoread          " skip file reload question
+set clipboard=unnamed   " share OS clipboard
+set autoread            " skip file reload question
 set number
 set relativenumber
-
+set ttyfast             " faster redrawing
+set mouse=a             " allow mouse usage for resizing windows
 " Search Options
 set ignorecase
 set smartcase
@@ -68,7 +84,8 @@ set gdefault
 " Own keybindings
 let mapleader = ","
 
-inoremap jf <esc>
+" Go to definition:
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Toggle Comment on current line
 nnoremap <leader>c <Plug>CommentaryLine
@@ -76,11 +93,10 @@ nnoremap <leader>c <Plug>CommentaryLine
 " Quick Buffer Switching
 nnoremap <leader><leader> <C-^>
 
-" create new vsplit, and switch to it.
-noremap <leader>v <C-w>v
-
 " Clear match highlighting
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+
+inoremap jf <esc>
 
 " bindings for easy split nav
 nnoremap <C-h> <C-w>h
