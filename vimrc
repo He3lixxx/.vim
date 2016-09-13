@@ -53,7 +53,7 @@ augroup vimrc_autocmds
 augroup END
 
 " Indentation
-set tabstop=4
+set tabstop=4           " 1 tab = 4 spaces
 set shiftwidth=4
 set softtabstop=4
 set expandtab           " to spaces
@@ -69,17 +69,19 @@ set list
 " Behaviour
 set clipboard=unnamed   " share OS clipboard
 set autoread            " skip file reload question
-set number
-set relativenumber
+set number              " show line number instead of 0
+set relativenumber      " relative line numbers
 set ttyfast             " faster redrawing
 set mouse=a             " allow mouse usage for resizing windows
+set hidden              " allow hidden, unsaved buffers
+set showmatch           " hilight matching surroundings
+
 " Search Options
-set ignorecase
-set smartcase
-set incsearch
-set showmatch
-set hlsearch
-set gdefault
+set ignorecase          " case-insensitive searching for lower-case expressions
+set smartcase           " case-sensitive searching for mixed-case expressions
+set incsearch           " search while typing
+set hlsearch            " hilight search results
+set gdefault            " substitute all matches by default
 
 " Own keybindings
 let mapleader = ","
