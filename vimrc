@@ -51,7 +51,30 @@ let g:syntastic_python_checkers = ["flake8"]
 
 call vundle#end()
 
+
+"------------------- pandoc Markdown+LaTeX
+function s:MDSettings()
+    inoremap <buffer> <Leader>n \note[item]{}<Esc>i
+    noremap <buffer> <Leader>b :! pandoc -t beamer % -o %<.pdf<CR><CR>
+    noremap <buffer> <Leader>l :! pandoc -t latex % -o %<.pdf<CR>
+    noremap <buffer> <Leader>v :! evince %<.pdf 2>&1 >/dev/null &<CR><CR>
+
+    " adjust syntax highlighting for LaTeX parts
+    "   inline formulas:
+    syntax region Statement oneline matchgroup=Delimiter start="\$" end="\$"
+    "   environments:
+    syntax region Statement matchgroup=Delimiter start="\\begin{.*}" end="\\end{.*}" contains=Statement
+    "   commands:
+    syntax region Statement matchgroup=Delimiter start="{" end="}" contains=Statement
+    syntax region Statement matchgroup=Delimiter start="$$" end="$$" contains=Statement
+endfunction
+
+autocmd BufRead,BufNewFile *.md setfiletype markdown
+autocmd FileType markdown :call <SID>MDSettings()
+
+
 " ------------------ Settings
+
 
 colorscheme solarized
 
@@ -83,6 +106,7 @@ set autoread            " skip file reload question
 set number              " show line number instead of 0
 set relativenumber      " relative line numbers
 set ttyfast             " faster redrawing
+set scrolloff=3         " always 3 lines visible
 
 set mouse+=a            " allow mouse usage for resizing windows
 if &term =~ '^screen'
