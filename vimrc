@@ -3,7 +3,7 @@ set nocompatible
 
 " ------------------ Plugins
 
-" Vundle Setup
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -14,6 +14,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-obsession'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 " Plugin 'davidhalter/jedi-vim'
@@ -33,6 +34,8 @@ set t_Co=256     " Colors
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_python_binary_path = 'python3'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/.ycm_extra_conf.py'
+let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py']
 
 " Solarized Color Scheme
 let g:solarized_termcolors=16
@@ -47,6 +50,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_python_pylint_exe = "pylint3"
 let g:syntastic_python_checkers = ["flake8"]
 
 call vundle#end()
@@ -94,7 +99,7 @@ set expandtab           " to spaces
 set smarttab            " treat spaces as tabs
 set shiftround
 set autoindent
-set smartindent
+" set smartindent
 
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
@@ -131,7 +136,8 @@ nnoremap <leader>n :lnext<cr>
 nnoremap <leader>p :lprevious<cr>
 
 " Go to definition:
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>g :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>G :YcmCompleter GoToDefinition<CR>
 
 " Toggle Comment on current line
 " Based on tpope's commentary plugin
