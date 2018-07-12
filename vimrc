@@ -35,7 +35,7 @@ let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py']
+let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py', '~/uni/cp/.ycm_extra_conf.py']
 
 " Solarized Color Scheme
 let g:solarized_termcolors=16
@@ -53,6 +53,7 @@ let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_pylint_exe = "pylint3"
 let g:syntastic_python_checkers = ["flake8"]
+let g:syntastic_cpp_include_dirs = [ '/home/richard/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/']
 
 call vundle#end()
 
@@ -151,6 +152,8 @@ nnoremap <leader><leader> <C-^>
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
 inoremap jf <esc>
+inoremap Jf <esc>
+inoremap JF <esc>
 
 " Use sane regex's when searching
 nnoremap / /\v
