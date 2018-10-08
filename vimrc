@@ -22,7 +22,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
-
+Plugin 'kchmck/vim-coffee-script'
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -30,15 +30,13 @@ set laststatus=2 " Always show the status bar
 set t_Co=256     " Colors
 
 " YouCompleteMe
-" let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_python_binary_path = 'python3'
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/cpp/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py', '~/uni/cp/.ycm_extra_conf.py']
 
 " Solarized Color Scheme
-let g:solarized_termcolors=16
 syntax enable
 set background=dark
 
@@ -100,7 +98,6 @@ set expandtab           " to spaces
 set smarttab            " treat spaces as tabs
 set shiftround
 set autoindent
-" set smartindent
 
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
@@ -171,4 +168,3 @@ map ß /
 " For navigatin into wrapped lines
 noremap j gj
 noremap k gk
-
