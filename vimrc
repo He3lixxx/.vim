@@ -1,9 +1,7 @@
 " No backwards compatibility to VI
 set nocompatible
-
 " ------------------ Plugins
-
-
+filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -15,6 +13,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-obsession'
+Plugin 'tpope/vim-sleuth'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
 " Plugin 'davidhalter/jedi-vim'
@@ -23,6 +22,10 @@ Plugin 'altercation/vim-colors-solarized.git'
 Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'kchmck/vim-coffee-script'
+
+call vundle#end()
+syntax enable
+filetype plugin indent on
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -37,7 +40,6 @@ let g:ycm_global_ycm_extra_conf = '~/.vim/cpp/.ycm_extra_conf.py'
 let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py', '~/uni/cp/.ycm_extra_conf.py']
 
 " Solarized Color Scheme
-syntax enable
 set background=dark
 
 " Syntastic Settings
@@ -53,16 +55,16 @@ let g:syntastic_python_pylint_exe = "pylint3"
 let g:syntastic_python_checkers = ["flake8"]
 let g:syntastic_cpp_include_dirs = [ '/home/richard/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/']
 
-call vundle#end()
+
+" CtrlP
+if executable('rg')
+  let g:ctrlp_user_command = 'rg --files %s'
+  let g:ctrlp_use_caching = 0
+endif
 
 
 "------------------- pandoc Markdown+LaTeX
 function s:MDSettings()
-    inoremap <buffer> <Leader>n \note[item]{}<Esc>i
-    noremap <buffer> <Leader>b :! pandoc -t beamer % -o %<.pdf<CR><CR>
-    noremap <buffer> <Leader>l :! pandoc -t latex % -o %<.pdf<CR>
-    noremap <buffer> <Leader>v :! evince %<.pdf 2>&1 >/dev/null &<CR><CR>
-
     " adjust syntax highlighting for LaTeX parts
     "   inline formulas:
     syntax region Statement oneline matchgroup=Delimiter start="\$" end="\$"
@@ -76,13 +78,23 @@ endfunction
 autocmd BufRead,BufNewFile *.md setfiletype markdown
 autocmd FileType markdown :call <SID>MDSettings()
 
+function! CElseL(command)
+  try
+
+    try
+      execute "c" . a:command
+    catch /^Vim\%((\a\+)\)\=:E\%(325\|776\|42\):/
+      execute "l" . a:command
+    endtry
+
+  catch /./
+    echo v:exception
+  endtry
+
+endfunction
 
 " ------------------ Settings
-
-
 colorscheme solarized
-
-filetype plugin indent on
 
 augroup vimrc_autocmds
     autocmd!
@@ -92,12 +104,13 @@ augroup END
 
 " Indentation
 set tabstop=4           " 1 tab = 4 spaces
-set shiftwidth=4
-set softtabstop=4
-set expandtab           " to spaces
-set smarttab            " treat spaces as tabs
 set shiftround
 set autoindent
+" should be set by vim-sleuth
+" set shiftwidth=4
+" set expandtab           " to spaces
+" set softtabstop=4
+" set smarttab            " treat spaces as tabs
 
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
@@ -126,12 +139,22 @@ set incsearch           " search while typing
 set hlsearch            " hilight search results
 set gdefault            " substitute all matches by default
 
+" Ripgrep as grep engine
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+
+" open location list after :grep
+augroup autoquickfix
+    autocmd!
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost    l* lwindow
+augroup END
+
 " Own keybindings
 let mapleader = ","
 
 " Go to next / previous marked location:
-nnoremap <leader>n :lnext<cr>
-nnoremap <leader>p :lprevious<cr>
+nnoremap <silent><leader>n :call CElseL("next")<cr>
+nnoremap <silent><leader>p :call CElseL("previous")<cr>
 
 " Go to definition:
 nnoremap <leader>g :YcmCompleter GoToDeclaration<CR>
@@ -145,9 +168,9 @@ nnoremap <leader>c :Commentary<cr>
 nnoremap <leader><leader> <C-^>
 
 " Clear match highlighting
-
 noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
+" Escape alternatives
 inoremap jf <esc>
 inoremap Jf <esc>
 inoremap JF <esc>
@@ -157,11 +180,6 @@ nnoremap / /\v
 vnoremap / /\v
 
 " German Mappings
-map ü <C-]>
-map ö [
-map ä ]
-map Ö {
-map Ä }
 map ß /
 
 " Visual line nav, not real line nav
