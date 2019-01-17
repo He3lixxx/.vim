@@ -78,22 +78,23 @@ endfunction
 autocmd BufRead,BufNewFile *.md setfiletype markdown
 autocmd FileType markdown :call <SID>MDSettings()
 
+" ------------------ Settings
+" restore cursor column after buffer enter
+autocmd BufEnter * silent! normal! g`"
+
 function! CElseL(command)
   try
-
-    try
+    if len(filter(getwininfo(), 'v:val.quickfix && !v:val.loclist'))
       execute "c" . a:command
-    catch /^Vim\%((\a\+)\)\=:E\%(325\|776\|42\):/
-      execute "l" . a:command
-    endtry
+      return
+    endif
 
+    execute "l" . a:command
   catch /./
     echo v:exception
   endtry
-
 endfunction
 
-" ------------------ Settings
 colorscheme solarized
 
 augroup vimrc_autocmds
@@ -106,11 +107,12 @@ augroup END
 set tabstop=4           " 1 tab = 4 spaces
 set shiftround
 set autoindent
-" should be set by vim-sleuth
-" set shiftwidth=4
-" set expandtab           " to spaces
-" set softtabstop=4
-" set smarttab            " treat spaces as tabs
+
+" should be set by vim-sleuth - these are just defaults for new files
+set shiftwidth=4
+set expandtab           " to spaces
+set softtabstop=4
+set smarttab            " treat spaces as tabs
 
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
@@ -159,10 +161,6 @@ nnoremap <silent><leader>p :call CElseL("previous")<cr>
 " Go to definition:
 nnoremap <leader>g :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>G :YcmCompleter GoToDefinition<CR>
-
-" Toggle Comment on current line
-" Based on tpope's commentary plugin
-nnoremap <leader>c :Commentary<cr>
 
 " Quick Buffer Switching
 nnoremap <leader><leader> <C-^>
