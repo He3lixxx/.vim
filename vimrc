@@ -79,9 +79,6 @@ autocmd BufRead,BufNewFile *.md setfiletype markdown
 autocmd FileType markdown :call <SID>MDSettings()
 
 " ------------------ Settings
-" restore cursor column after buffer enter
-autocmd BufEnter * silent! normal! g`"
-
 function! CElseL(command)
   try
     if len(filter(getwininfo(), 'v:val.quickfix && !v:val.loclist'))
@@ -125,6 +122,8 @@ set number              " show line number instead of 0
 set relativenumber      " relative line numbers
 set ttyfast             " faster redrawing
 set scrolloff=3         " always 3 lines visible
+set nostartofline       " do not go to start of line when changing buffers
+
 
 set mouse+=a            " allow mouse usage for resizing windows
 if &term =~ '^screen'
