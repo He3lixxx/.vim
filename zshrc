@@ -30,6 +30,9 @@ fi
 # Don't show changes in the current dir just because there are untracked files
 export DISABLE_UNTRACKED_FILES_DIRTY=true
 
+# Use vim by default
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 _gen_fzf_default_opts() {
   local base03="234"
