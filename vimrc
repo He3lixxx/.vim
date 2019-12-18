@@ -1,5 +1,7 @@
 " No backwards compatibility to VI
 set nocompatible
+scriptencoding utf-8
+set encoding=utf-8
 " ------------------ Plugins
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
