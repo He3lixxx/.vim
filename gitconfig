@@ -1,0 +1,14 @@
+# put this in ~/.gitconfig:
+#
+# [include]
+# 	path = ~/.vim/gitconfig
+
+[user]
+	email = He3lixxx@users.noreply.github.com
+	name = Richard Ebeling
+[push]
+	default = simple
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+[core]
+	pager = less -F -X
