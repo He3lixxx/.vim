@@ -14,18 +14,20 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-sleuth'
-Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'Valloric/YouCompleteMe'
-" Plugin 'davidhalter/jedi-vim'
 Plugin 'scrooloose/syntastic'
-Plugin 'altercation/vim-colors-solarized.git'
-Plugin 'benmills/vimux'
+Plugin 'lifepillar/vim-solarized8'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'kchmck/vim-coffee-script'
+Plugin 'junegunn/fzf.vim'
+Plugin 'junegunn/fzf'
 
 call vundle#end()
 syntax enable
 filetype plugin indent on
+
+" Security - can be removed if vim is updated here
+" https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-12735.html
+set nomodeline
 
 " Airline
 let g:airline_powerline_fonts = 1
@@ -37,10 +39,21 @@ let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_global_ycm_extra_conf = '~/.vim/cpp/.ycm_extra_conf.py'
-let g:ycm_extra_conf_globlist = ['~/uni/pt-2/.ycm_extra_conf.py', '~/uni/semester-1/pt-1/.ycm_extra_conf.py', '~/uni/cp/.ycm_extra_conf.py']
+let g:ycm_extra_conf_globlist = [
+      \ '~/uni/pt-2/.ycm_extra_conf.py',
+      \ '~/uni/semester-1/pt-1/.ycm_extra_conf.py',
+      \ '~/uni/cp/.ycm_extra_conf.py',
+      \ '~/uni/dyod/.ycm_extra_conf.py',
+      \ ]
+
 
 " Solarized Color Scheme
+set termguicolors
 set background=dark
+colorscheme solarized8
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 " Syntastic Settings
 set statusline +=%#warningmsg#
@@ -55,13 +68,28 @@ let g:syntastic_python_pylint_exe = "pylint3"
 let g:syntastic_python_checkers = ["flake8"]
 let g:syntastic_cpp_include_dirs = [ '/home/richard/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/']
 
+" Workaround for closing location list when a buffer is deleted (:bd)
+cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
 
 " CtrlP
-if executable('rg')
-  let g:ctrlp_user_command = 'rg --files %s'
-  let g:ctrlp_use_caching = 0
-endif
+" if executable('rg')
+"   let g:ctrlp_user_command = 'rg --files %s'
+"   let g:ctrlp_use_caching = 0
+"   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30'
+" endif
 
+" FZF
+let g:fzf_action = {
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
+nnoremap <c-p> :FZF<cr>
+augroup fzf
+  autocmd!
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
 
 "------------------- pandoc Markdown+LaTeX
 function s:MDSettings()
@@ -92,14 +120,6 @@ function! CElseL(command)
   endtry
 endfunction
 
-colorscheme solarized
-
-augroup vimrc_autocmds
-    autocmd!
-    autocmd FileType python let &colorcolumn="80,".join(range(100,999),",")
-    autocmd FileType python set nowrap
-augroup END
-
 " Indentation
 set tabstop=4           " 1 tab = 4 spaces
 set shiftround
@@ -114,6 +134,12 @@ set smarttab            " treat spaces as tabs
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
 set list
+
+" Show 80th, 100th and 120th column
+let &colorcolumn="80,100,120"
+
+" Don't wrap by default
+set nowrap
 
 " Behaviour
 set clipboard=unnamed   " share OS clipboard
