@@ -15,11 +15,11 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-obsession'
 Plugin 'tpope/vim-sleuth'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/syntastic'
 Plugin 'lifepillar/vim-solarized8'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'junegunn/fzf.vim'
 Plugin 'junegunn/fzf'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 syntax enable
@@ -55,28 +55,15 @@ colorscheme solarized8
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-" Syntastic Settings
-set statusline +=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:ale_linters_explicit = 1
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'python': ['flake8'],
+\}
 
-let g:syntastic_python_pylint_exe = "pylint3"
-let g:syntastic_python_checkers = ["flake8"]
-let g:syntastic_cpp_include_dirs = [ '/home/richard/Qt5.9.2/5.9.2/gcc_64/include/QtWidgets/']
 
 " Workaround for closing location list when a buffer is deleted (:bd)
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
-
-" CtrlP
-" if executable('rg')
-"   let g:ctrlp_user_command = 'rg --files %s'
-"   let g:ctrlp_use_caching = 0
-"   let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30'
-" endif
 
 " FZF
 let g:fzf_action = {
@@ -178,6 +165,10 @@ augroup END
 
 " Own keybindings
 let mapleader = ","
+
+" start global search for word under cursor with <leader>f
+nnoremap <leader>f :Rg <c-r>=expand("<cword>")<cr>
+nnoremap <leader>F :Rg <c-r>=expand("<cWORD>")<cr>
 
 " Go to next / previous marked location:
 nnoremap <silent><leader>n :call CElseL("next")<cr>
