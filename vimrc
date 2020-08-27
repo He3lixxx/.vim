@@ -46,7 +46,7 @@ let g:ycm_extra_conf_globlist = [
       \ '~/uni/cp/.ycm_extra_conf.py',
       \ '~/uni/dyod/.ycm_extra_conf.py',
       \ ]
-
+let g:ycm_auto_hover = ''
 
 " Solarized Color Scheme
 set termguicolors

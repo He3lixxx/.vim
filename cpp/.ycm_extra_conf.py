@@ -82,6 +82,9 @@ flags = [
 # QT Includes
 '-DQT_GUI_LIB',
 '-I/home/richard/Qt5.9.2/5.9.2/gcc_64/include/QtGui',
+
+# OpenMPI
+'-I/usr/lib/x86_64-linux-gnu/openmpi/include',
 ]
 
 
