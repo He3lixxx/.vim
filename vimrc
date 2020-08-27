@@ -67,10 +67,6 @@ let g:ale_linters = {
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
 
 " FZF
-let g:fzf_action = {
-      \ 'ctrl-s': 'split',
-      \ 'ctrl-v': 'vsplit'
-      \ }
 nnoremap <c-p> :FZF<cr>
 augroup fzf
   autocmd!
@@ -78,21 +74,6 @@ augroup fzf
   autocmd  FileType fzf set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-
-"------------------- pandoc Markdown+LaTeX
-function s:MDSettings()
-    " adjust syntax highlighting for LaTeX parts
-    "   inline formulas:
-    syntax region Statement oneline matchgroup=Delimiter start="\$" end="\$"
-    "   environments:
-    syntax region Statement matchgroup=Delimiter start="\\begin{.*}" end="\\end{.*}" contains=Statement
-    "   commands:
-    syntax region Statement matchgroup=Delimiter start="{" end="}" contains=Statement
-    syntax region Statement matchgroup=Delimiter start="$$" end="$$" contains=Statement
-endfunction
-
-autocmd BufRead,BufNewFile *.md setfiletype markdown
-autocmd FileType markdown :call <SID>MDSettings()
 
 " ------------------ Settings
 function! CElseL(command)
