@@ -2,27 +2,26 @@
 set nocompatible
 scriptencoding utf-8
 set encoding=utf-8
+
 " ------------------ Plugins
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/plugged')
 
-" Own Plugins
-Plugin 'vim-airline/vim-airline'
-Plugin 'tpope/vim-sensible'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-sleuth'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'lifepillar/vim-solarized8'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'junegunn/fzf.vim'
-Plugin 'junegunn/fzf'
-Plugin 'w0rp/ale'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sleuth'
+Plug 'Valloric/YouCompleteMe'
+Plug 'lifepillar/vim-solarized8'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/fzf.vim', {'commit': '23dda8602f138a9d75dd03803a79733ee783e356'}
+Plug 'junegunn/fzf'
+Plug 'w0rp/ale'
+Plug 'Vimjas/vim-python-pep8-indent'
 
-call vundle#end()
+call plug#end()
+
 syntax enable
 filetype plugin indent on
 
@@ -91,14 +90,8 @@ endfunction
 
 " Indentation
 set tabstop=4           " 1 tab = 4 spaces
-set shiftround
-set autoindent
-
-" should be set by vim-sleuth - these are just defaults for new files
 set shiftwidth=4
 set expandtab           " to spaces
-set softtabstop=4
-set smarttab            " treat spaces as tabs
 
 " Whitespace Rendering
 set listchars=tab:▸\ ,trail:·
