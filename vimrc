@@ -66,7 +66,8 @@ let g:ale_linters = {
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
 
 " FZF
-nnoremap <c-p> :FZF<cr>
+nnoremap <c-p> :Files<cr>
+let g:fzf_preview_window = ''
 augroup fzf
   autocmd!
   autocmd! FileType fzf
