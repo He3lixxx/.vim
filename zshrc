@@ -9,6 +9,8 @@ SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 
 # Dont share history between sessions
 unsetopt share_history
+HISTSIZE=1000000
+SAVEHIST=1000000
 
 # Command aliasses
 alias caja='caja "$PWD"'

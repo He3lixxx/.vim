@@ -19,6 +19,7 @@ Plug 'junegunn/fzf.vim', {'commit': '23dda8602f138a9d75dd03803a79733ee783e356'}
 Plug 'junegunn/fzf'
 Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'rhysd/vim-clang-format'
 
 call plug#end()
 
@@ -44,6 +45,7 @@ let g:ycm_extra_conf_globlist = [
       \ '~/uni/semester-1/pt-1/.ycm_extra_conf.py',
       \ '~/uni/cp/.ycm_extra_conf.py',
       \ '~/uni/dyod/.ycm_extra_conf.py',
+      \ '~/code/grizzly-prototype/.ycm_extra_conf.py',
       \ ]
 let g:ycm_auto_hover = ''
 
