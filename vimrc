@@ -15,8 +15,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'Valloric/YouCompleteMe'
 Plug 'lifepillar/vim-solarized8'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'junegunn/fzf.vim', {'commit': '23dda8602f138a9d75dd03803a79733ee783e356'}
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'rhysd/vim-clang-format'
@@ -76,6 +76,19 @@ augroup fzf
   autocmd  FileType fzf set laststatus=0 noshowmode noruler
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
+function! s:build_quickfix_list(lines)
+  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+  copen
+  cc
+  if (len(a:lines) == 1)
+    call setqflist([])
+    ccl
+  endif
+endfunction
+
+let g:fzf_action = {'enter': function('s:build_quickfix_list')}
+
 
 " ------------------ Settings
 function! CElseL(command)
