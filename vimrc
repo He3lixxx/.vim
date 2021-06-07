@@ -77,13 +77,13 @@ augroup fzf
     \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
+function s:build_quickfix_list(lines)
   if (len(a:lines) == 1)
-    call setqflist([])
-    ccl
+    execute 'edit' a:lines[0]
+  else
+    call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+    copen
+    cc
   endif
 endfunction
 
@@ -143,16 +143,6 @@ set smartcase           " case-sensitive searching for mixed-case expressions
 set incsearch           " search while typing
 set hlsearch            " hilight search results
 set gdefault            " substitute all matches by default
-
-" Ripgrep as grep engine
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-
-" open location list after :grep
-augroup autoquickfix
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost    l* lwindow
-augroup END
 
 " Own keybindings
 let mapleader = ","
