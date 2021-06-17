@@ -167,6 +167,7 @@ noremap <leader><space> :noh<cr>:call clearmatches()<cr>
 
 " Escape alternatives
 inoremap jf <esc>
+inoremap jF <esc>
 inoremap Jf <esc>
 inoremap JF <esc>
 
