@@ -89,6 +89,8 @@ endfunction
 
 let g:fzf_action = {'enter': function('s:build_quickfix_list')}
 
+" vim-commentary uses commentstring, which by default makes the line /* ... */
+autocmd FileType c,cpp,cs,java setlocal commentstring=//\ %s
 
 " ------------------ Settings
 function! CElseL(command)
