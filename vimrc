@@ -20,6 +20,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'dense-analysis/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'rhysd/vim-clang-format'
+Plug 'bfrg/vim-cpp-modern'
 
 call plug#end()
 
