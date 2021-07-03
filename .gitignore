@@ -1,0 +1,6 @@
+.netrwhist
+*.swp
+
+autoload/
+plugged/
+tmux-bundle/
