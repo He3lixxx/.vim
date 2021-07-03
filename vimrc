@@ -17,7 +17,7 @@ Plug 'lifepillar/vim-solarized8'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'rhysd/vim-clang-format'
 
@@ -61,8 +61,10 @@ let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
+\   'cpp': ['cpplint', 'cppcheck'],
 \}
-
+let g:ale_c_build_dir_names = ['build', 'bin', 'build-release', 'build-debug']
+let g:ale_cpp_cppcheck_options="--enable=style,warning,information --inline-suppr"
 
 " Workaround for closing location list when a buffer is deleted (:bd)
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
@@ -130,6 +132,9 @@ set ttyfast             " faster redrawing
 set scrolloff=3         " always 3 lines visible
 set nostartofline       " do not go to start of line when changing buffers
 
+" Vim command Autocompletion
+set wildmenu
+set wildmode=longest:full,full
 
 set mouse+=a            " allow mouse usage for resizing windows
 if &term =~ '^screen'
